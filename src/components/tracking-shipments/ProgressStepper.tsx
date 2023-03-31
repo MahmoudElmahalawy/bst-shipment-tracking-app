@@ -1,6 +1,6 @@
 import React from "react";
 import { styled } from "@mui/material/styles";
-import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
@@ -15,7 +15,7 @@ import Typography from "@mui/material/Typography";
 
 import useTranslation from "next-translate/useTranslation";
 
-const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
+const StepperConnector = styled(StepConnector)(({ theme }) => ({
 	[`&.${stepConnectorClasses.alternativeLabel}`]: {
 		top: 22,
 	},
@@ -37,7 +37,7 @@ const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
 	},
 }));
 
-const ColorlibStepIconRoot = styled("div")<{
+const StepIconRoot = styled("div")<{
 	ownerState: { completed?: boolean; active?: boolean };
 }>(({ theme, ownerState }) => ({
 	backgroundColor: "white",
@@ -63,8 +63,8 @@ const ColorlibStepIconRoot = styled("div")<{
 	}),
 }));
 
-function ColorlibStepIcon(props: StepIconProps) {
-	const { t, lang } = useTranslation("home");
+function StepIcon(props: StepIconProps) {
+	const { lang } = useTranslation();
 	const { active, completed, className } = props;
 
 	const icons: { [index: string]: React.ReactElement } = {
@@ -75,38 +75,39 @@ function ColorlibStepIcon(props: StepIconProps) {
 	};
 
 	return (
-		<ColorlibStepIconRoot ownerState={{ completed, active }} className={className}>
+		<StepIconRoot ownerState={{ completed, active }} className={className}>
 			{!completed ? icons[String(props.icon)] : <CheckIcon />}
-		</ColorlibStepIconRoot>
+		</StepIconRoot>
 	);
 }
 
-export default function CustomizedSteppers() {
+export default function ProgressStepper() {
 	const { t, lang } = useTranslation("home");
 
 	const steps = [t("ticket_created"), t("package_received"), t("in_transit"), t("delivered")];
 
-	// React.useEffect(() => console.log({ lang }), [lang]);
-
 	return (
-		<Stack sx={{ width: "100%" }} spacing={4}>
+		<Box sx={{ width: "100%" }}>
 			<Stepper
 				alternativeLabel
 				activeStep={1}
-				connector={<ColorlibConnector />}
+				connector={<StepperConnector />}
 				dir={lang === "ar" ? "rtl" : "ltr"}
 			>
 				{steps.map((label) => (
 					<Step key={label}>
 						<StepLabel
-							StepIconComponent={ColorlibStepIcon}
+							StepIconComponent={StepIcon}
 							sx={{
 								fontWeight: 700,
 								"& .MuiStepLabel-label": { fontWeight: 700 },
 								"& .Mui-completed, & .Mui-active": { fontWeight: 700, color: "#222b46" },
 							}}
 							optional={
-								<Typography variant="caption" color="error">
+								<Typography
+									variant="caption"
+									// color="error"
+								>
 									Alert message
 								</Typography>
 							}
@@ -117,6 +118,6 @@ export default function CustomizedSteppers() {
 					</Step>
 				))}
 			</Stepper>
-		</Stack>
+		</Box>
 	);
 }
