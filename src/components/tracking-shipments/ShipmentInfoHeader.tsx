@@ -10,11 +10,11 @@ type HeaderCellProps = {
 };
 
 const HeaderCell = (props: HeaderCellProps) => (
-	<Grid item xs={12} lg={3}>
-		<Typography component={"h3"} fontSize={"0.85rem"} sx={{ color: "#999", mb: 1 }}>
+	<Grid item xs={12} sm={6} lg={3}>
+		<Typography component={"h3"} sx={{ color: "#999", fontSize: "0.85rem", mb: 1 }}>
 			{props.title}
 		</Typography>
-		<Typography component={"p"} fontWeight={700}>
+		<Typography component={"p"} sx={{ fontWeight: 700, mb: { sm: 1, lg: "initial" } }}>
 			{props.content}
 		</Typography>
 	</Grid>
@@ -36,7 +36,7 @@ export default function ShipmentInfoHeader() {
 					<HeaderCell title={t("delivery_date_in")} content={"3 يناير 2020"} />
 				</Grid>
 			</Box>
-			<Box sx={{ p: 3 }}>
+			<Box sx={{ py: 3 }}>
 				<ProgressStepper />
 			</Box>
 		</Box>

@@ -7,6 +7,7 @@ import createCache from "@emotion/cache";
 import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import useTranslation from "next-translate/useTranslation";
+import Navbar from "@/components/navbar/Navbar";
 
 export default function App({ Component, pageProps }: AppProps) {
 	const { lang } = useTranslation();
@@ -19,6 +20,7 @@ export default function App({ Component, pageProps }: AppProps) {
 	const children = (
 		<ThemeProvider theme={theme}>
 			<CssBaseline />
+			<Navbar />
 			<Component {...pageProps} />
 		</ThemeProvider>
 	);
