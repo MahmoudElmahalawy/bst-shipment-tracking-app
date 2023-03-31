@@ -32,7 +32,7 @@ const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
 	[`& .${stepConnectorClasses.line}`]: {
 		height: 6,
 		border: 0,
-		backgroundColor: theme.palette.mode === "dark" ? theme.palette.grey[800] : "#eaeaf0",
+		backgroundColor: "#eaeaf0",
 		borderRadius: 1,
 	},
 }));
@@ -64,12 +64,13 @@ const ColorlibStepIconRoot = styled("div")<{
 }));
 
 function ColorlibStepIcon(props: StepIconProps) {
+	const { t, lang } = useTranslation("home");
 	const { active, completed, className } = props;
 
 	const icons: { [index: string]: React.ReactElement } = {
 		1: <NoteAddIcon />,
 		2: <InventoryIcon />,
-		3: <LocalShippingIcon sx={{ transform: "scaleX(-1)" }} />,
+		3: <LocalShippingIcon sx={{ ...(lang === "ar" ? { transform: "scaleX(-1)" } : {}) }} />,
 		4: <SaveIcon />,
 	};
 
@@ -89,12 +90,18 @@ export default function CustomizedSteppers() {
 
 	return (
 		<Stack sx={{ width: "100%" }} spacing={4}>
-			<Stepper alternativeLabel activeStep={1} connector={<ColorlibConnector />}>
+			<Stepper
+				alternativeLabel
+				activeStep={1}
+				connector={<ColorlibConnector />}
+				dir={lang === "ar" ? "rtl" : "ltr"}
+			>
 				{steps.map((label) => (
 					<Step key={label}>
 						<StepLabel
 							StepIconComponent={ColorlibStepIcon}
 							sx={{
+								fontWeight: 700,
 								"& .MuiStepLabel-label": { fontWeight: 700 },
 								"& .Mui-completed, & .Mui-active": { fontWeight: 700, color: "#222b46" },
 							}}
