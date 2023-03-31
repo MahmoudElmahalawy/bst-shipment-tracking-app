@@ -11,27 +11,9 @@ import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import SaveIcon from "@mui/icons-material/Save";
 import StepConnector, { stepConnectorClasses } from "@mui/material/StepConnector";
 import { StepIconProps } from "@mui/material/StepIcon";
+import Typography from "@mui/material/Typography";
 
-const QontoStepIconRoot = styled("div")<{ ownerState: { active?: boolean } }>(({ theme, ownerState }) => ({
-	color: theme.palette.mode === "dark" ? theme.palette.grey[700] : "#eaeaf0",
-	display: "flex",
-	height: 22,
-	alignItems: "center",
-	...(ownerState.active && {
-		color: "#784af4",
-	}),
-	"& .QontoStepIcon-completedIcon": {
-		color: "#784af4",
-		zIndex: 1,
-		fontSize: 18,
-	},
-	"& .QontoStepIcon-circle": {
-		width: 8,
-		height: 8,
-		borderRadius: "50%",
-		backgroundColor: "currentColor",
-	},
-}));
+import useTranslation from "next-translate/useTranslation";
 
 const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
 	[`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -58,20 +40,26 @@ const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
 const ColorlibStepIconRoot = styled("div")<{
 	ownerState: { completed?: boolean; active?: boolean };
 }>(({ theme, ownerState }) => ({
-	backgroundColor: theme.palette.mode === "dark" ? theme.palette.grey[700] : "#ccc",
+	backgroundColor: "white",
 	zIndex: 1,
-	color: "#fff",
+	color: "#cfcfcf",
 	width: 50,
 	height: 50,
 	display: "flex",
 	borderRadius: "50%",
 	justifyContent: "center",
 	alignItems: "center",
+	border: "1px solid",
+	borderColor: "#cfcfcf",
 	...(ownerState.active && {
+		color: "white",
 		backgroundColor: "red",
+		border: "none",
 	}),
 	...(ownerState.completed && {
+		color: "white",
 		backgroundColor: "red",
+		border: "none",
 	}),
 }));
 
@@ -92,15 +80,33 @@ function ColorlibStepIcon(props: StepIconProps) {
 	);
 }
 
-const steps = ["Ticket Created", "Package Received", "In Transit", "Delivered"];
-
 export default function CustomizedSteppers() {
+	const { t, lang } = useTranslation("home");
+
+	const steps = [t("ticket_created"), t("package_received"), t("in_transit"), t("delivered")];
+
+	// React.useEffect(() => console.log({ lang }), [lang]);
+
 	return (
 		<Stack sx={{ width: "100%" }} spacing={4}>
 			<Stepper alternativeLabel activeStep={1} connector={<ColorlibConnector />}>
 				{steps.map((label) => (
 					<Step key={label}>
-						<StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
+						<StepLabel
+							StepIconComponent={ColorlibStepIcon}
+							sx={{
+								"& .MuiStepLabel-label": { fontWeight: 700 },
+								"& .Mui-completed, & .Mui-active": { fontWeight: 700, color: "#222b46" },
+							}}
+							optional={
+								<Typography variant="caption" color="error">
+									Alert message
+								</Typography>
+							}
+							// error={true}
+						>
+							{label}
+						</StepLabel>
 					</Step>
 				))}
 			</Stepper>

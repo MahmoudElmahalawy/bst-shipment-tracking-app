@@ -1,0 +1,10 @@
+{
+	"shipment_no": "shipment no",
+	"last_update": "last update",
+	"seller_name": "seller name",
+	"delivery_date_in": "delivery date in",
+	"ticket_created": "Ticket Created",
+	"package_received": "Package Received",
+	"in_transit": "In Transit",
+	"delivered": "Delivered"
+}

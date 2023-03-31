@@ -1,0 +1,10 @@
+{
+	"shipment_no": "رقم الشحنة",
+	"last_update": "آخر تحديث",
+	"seller_name": "اسم التاجر",
+	"delivery_date_in": "موعد التسليم خلال",
+	"ticket_created": "تم انشاء الشحنة",
+	"package_received": "تم استلام الشحنة من التاجر",
+	"in_transit": "الشحنة خرجت للتسليم",
+	"delivered": "تم التسليم"
+}
