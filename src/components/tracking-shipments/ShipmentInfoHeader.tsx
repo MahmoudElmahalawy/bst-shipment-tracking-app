@@ -46,7 +46,7 @@ export default function ShipmentInfoHeader() {
 					<Grid container>
 						<HeaderCell
 							title={`${t("shipment_no")} ${shipmentStore.data.TrackingNumber}`}
-							content={"تم الغاء الشحنة"}
+							content={t(shipmentStore.data.CurrentStatus.state)}
 						/>
 						<HeaderCell
 							title={t("last_update")}
