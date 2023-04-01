@@ -14,6 +14,7 @@ import { StepIconProps } from "@mui/material/StepIcon";
 import Typography from "@mui/material/Typography";
 
 import useTranslation from "next-translate/useTranslation";
+import { theme } from "@/styles/mui/theme";
 
 const StepperConnector = styled(StepConnector)(({ theme }) => ({
 	[`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -21,12 +22,12 @@ const StepperConnector = styled(StepConnector)(({ theme }) => ({
 	},
 	[`&.${stepConnectorClasses.active}`]: {
 		[`& .${stepConnectorClasses.line}`]: {
-			backgroundColor: "red",
+			backgroundColor: theme.palette.primary.main,
 		},
 	},
 	[`&.${stepConnectorClasses.completed}`]: {
 		[`& .${stepConnectorClasses.line}`]: {
-			backgroundColor: "red",
+			backgroundColor: theme.palette.primary.main,
 		},
 	},
 	[`& .${stepConnectorClasses.line}`]: {
@@ -53,12 +54,12 @@ const StepIconRoot = styled("div")<{
 	borderColor: "#cfcfcf",
 	...(ownerState.active && {
 		color: "white",
-		backgroundColor: "red",
+		backgroundColor: theme.palette.primary.main,
 		border: "none",
 	}),
 	...(ownerState.completed && {
 		color: "white",
-		backgroundColor: "red",
+		backgroundColor: theme.palette.primary.main,
 		border: "none",
 	}),
 }));
@@ -101,7 +102,10 @@ export default function ProgressStepper() {
 							sx={{
 								fontWeight: 700,
 								"& .MuiStepLabel-label": { fontWeight: 700 },
-								"& .Mui-completed, & .Mui-active": { fontWeight: 700, color: "#222b46" },
+								"& .Mui-completed, & .Mui-active": {
+									fontWeight: 700,
+									color: theme.palette.primary.main,
+								},
 							}}
 							optional={
 								<Typography

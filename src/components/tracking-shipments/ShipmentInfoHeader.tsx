@@ -1,3 +1,4 @@
+import { theme } from "@/styles/mui/theme";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -26,9 +27,15 @@ export default function ShipmentInfoHeader() {
 	return (
 		<Box
 			dir={lang === "ar" ? "rtl" : "ltr"}
-			sx={{ maxWidth: "1000px", width: "100%", border: "1px solid", borderColor: "#eee", borderRadius: 2 }}
+			sx={{
+				maxWidth: "1000px",
+				width: "100%",
+				border: "1px solid",
+				borderColor: theme.palette.divider,
+				borderRadius: 2,
+			}}
 		>
-			<Box sx={{ p: 3, borderBottom: "1px solid", borderColor: "#eee" }}>
+			<Box sx={{ p: 3, borderBottom: "1px solid", borderColor: theme.palette.divider }}>
 				<Grid container>
 					<HeaderCell title={t("shipment_no")} content={"تم الغاء الشحنة"} />
 					<HeaderCell title={t("last_update")} content={"الاثنين"} />

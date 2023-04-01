@@ -14,6 +14,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import useTranslation from "next-translate/useTranslation";
+import { theme } from "@/styles/mui/theme";
 
 interface ExtendedTooltipProps extends TooltipProps {
 	open: boolean;
@@ -47,7 +48,7 @@ const TrackingFormTooltip = styled(({ open, handleTooltipClose, className, ...pr
 		maxWidth: 350,
 		fontSize: theme.typography.pxToRem(12),
 		border: "1px solid",
-		borderColor: "#eee",
+		borderColor: theme.palette.divider,
 		borderRadius: "0 0 6px 6px",
 	},
 }));
@@ -61,13 +62,13 @@ const TrackingForm = () => {
 				edge="end"
 				sx={{
 					color: "white",
-					backgroundColor: "red",
+					backgroundColor: theme.palette.primary.main,
 					padding: 1.5,
 					m: 0,
 					borderRadius: "0 8px 8px 0",
 					zIndex: 2,
 					":hover": {
-						backgroundColor: "red",
+						backgroundColor: theme.palette.primary.main,
 					},
 				}}
 			>
@@ -114,7 +115,7 @@ export default function TrackShipmentDropdown() {
 			handleTooltipClose={handleTooltipClose}
 			title={
 				<Box sx={{ px: 2, py: 1 }} dir={lang === "ar" ? "rtl" : "ltr"}>
-					<Typography sx={{ color: "#222b46" }}>{t("track_shipment")}</Typography>
+					<Typography sx={{ color: theme.palette.secondary.main }}>{t("track_shipment")}</Typography>
 					<TrackingForm />
 				</Box>
 			}
@@ -123,7 +124,7 @@ export default function TrackShipmentDropdown() {
 			<Button
 				onClick={handleTooltipOpen}
 				sx={{
-					color: "#222b46",
+					color: theme.palette.secondary.main,
 					border: "1px solid",
 					borderColor: "transparent",
 					fontWeight: 700,
@@ -132,9 +133,9 @@ export default function TrackShipmentDropdown() {
 					mx: { xs: "initial", md: 5 },
 					...(open
 						? {
-								color: "red",
+								color: theme.palette.primary.main,
 								bgcolor: "white",
-								borderColor: "#eee",
+								borderColor: theme.palette.divider,
 								borderBottom: "none",
 								borderRadius: "6px 6px 0 0",
 						  }

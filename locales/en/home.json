@@ -8,5 +8,10 @@
 	"in_transit": "In Transit",
 	"delivered": "Delivered",
 	"track_shipment": "Track Shipment",
-	"tracking_no": "Tracking no"
+	"tracking_no": "Tracking no",
+	"shipment_details": "Shipment Details",
+	"branch": "Branch",
+	"date": "Date",
+	"time": "Time",
+	"details": "Details"
 }

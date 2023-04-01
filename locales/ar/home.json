@@ -8,5 +8,10 @@
 	"in_transit": "الشحنة خرجت للتسليم",
 	"delivered": "تم التسليم",
 	"track_shipment": "تتبع شحنتك",
-	"tracking_no": "رقم التتبع"
+	"tracking_no": "رقم التتبع",
+	"shipment_details": "تفاصيل الشحنة",
+	"branch": "الفرع",
+	"date": "التاريخ",
+	"time": "الوقت",
+	"details": "تفاصيل"
 }

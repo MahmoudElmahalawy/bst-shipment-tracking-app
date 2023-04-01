@@ -8,6 +8,7 @@ import Image from "next/image";
 import setLanguage from "next-translate/setLanguage";
 import useTranslation from "next-translate/useTranslation";
 import TrackShipmentDropdown from "./TrackShipmentDropdown";
+import { theme } from "@/styles/mui/theme";
 
 export default function Navbar() {
 	const { lang } = useTranslation();
@@ -16,7 +17,12 @@ export default function Navbar() {
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar
 				position="static"
-				sx={{ backgroundColor: "white", boxShadow: "none", border: "1px solid", borderColor: "#eee" }}
+				sx={{
+					backgroundColor: "white",
+					boxShadow: "none",
+					border: "1px solid",
+					borderColor: theme.palette.divider,
+				}}
 			>
 				<Container>
 					<Toolbar>
@@ -25,7 +31,7 @@ export default function Navbar() {
 								<Button
 									component="button"
 									onClick={async () => await setLanguage("en")}
-									sx={{ color: "red", fontWeight: 700 }}
+									sx={{ color: theme.palette.primary.main, fontWeight: 700 }}
 								>
 									ENG
 								</Button>
@@ -33,7 +39,7 @@ export default function Navbar() {
 								<Button
 									component="button"
 									onClick={async () => await setLanguage("ar")}
-									sx={{ color: "red", fontWeight: 700 }}
+									sx={{ color: theme.palette.primary.main, fontWeight: 700 }}
 								>
 									عربي
 								</Button>
