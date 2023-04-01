@@ -1,10 +1,12 @@
 {
-	"shipment_no": "shipment no",
-	"last_update": "last update",
-	"seller_name": "seller name",
-	"delivery_date_in": "delivery date in",
+	"shipment_no": "Shipment no",
+	"last_update": "Last update",
+	"seller_name": "Seller name",
+	"delivery_date_in": "Delivery date in",
 	"ticket_created": "Ticket Created",
 	"package_received": "Package Received",
 	"in_transit": "In Transit",
-	"delivered": "Delivered"
+	"delivered": "Delivered",
+	"track_shipment": "Track Shipment",
+	"tracking_no": "Tracking no"
 }

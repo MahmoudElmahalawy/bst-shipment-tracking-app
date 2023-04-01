@@ -2,14 +2,12 @@ import React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Image from "next/image";
 import setLanguage from "next-translate/setLanguage";
 import useTranslation from "next-translate/useTranslation";
+import TrackShipmentDropdown from "./TrackShipmentDropdown";
 
 export default function Navbar() {
 	const { lang } = useTranslation();
@@ -22,7 +20,7 @@ export default function Navbar() {
 			>
 				<Container>
 					<Toolbar>
-						<Box sx={{ flexGrow: 1 }}>
+						<Box sx={{ display: "flex", flexGrow: 1 }}>
 							{lang === "ar" ? (
 								<Button
 									component="button"
@@ -37,9 +35,10 @@ export default function Navbar() {
 									onClick={async () => await setLanguage("ar")}
 									sx={{ color: "red", fontWeight: 700 }}
 								>
-									AR
+									عربي
 								</Button>
 							)}
+							<TrackShipmentDropdown />
 						</Box>
 						<Button color="inherit">
 							<Image

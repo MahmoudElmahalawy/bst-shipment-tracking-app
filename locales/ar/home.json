@@ -6,5 +6,7 @@
 	"ticket_created": "تم انشاء الشحنة",
 	"package_received": "تم استلام الشحنة من التاجر",
 	"in_transit": "الشحنة خرجت للتسليم",
-	"delivered": "تم التسليم"
+	"delivered": "تم التسليم",
+	"track_shipment": "تتبع شحنتك",
+	"tracking_no": "رقم التتبع"
 }
