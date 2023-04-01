@@ -14,5 +14,13 @@
 	"date": "التاريخ",
 	"time": "الوقت",
 	"details": "تفاصيل",
-	"delivery_address": "عنوان التسليم"
+	"delivery_address": "عنوان التسليم",
+	"TICKET_CREATED": "تم إنشاء الشحنة",
+	"PACKAGE_RECEIVED": "تم إستلام الشحنة",
+	"NOT_YET_SHIPPED": "لم تشحن بعد",
+	"IN_TRANSIT": "جاري التوصيل",
+	"OUT_FOR_DELIVERY": "الشحنة خرجت للتوصيل",
+	"DELIVERED": "تم التسليم",
+	"CANCELLED": "تم إلغاء الشحنة",
+	"WAITING_FOR_CUSTOMER_ACTION": "في إنتظار العميل"
 }

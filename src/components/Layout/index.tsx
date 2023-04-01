@@ -4,7 +4,7 @@ import Container from "@mui/material/Container";
 import useTranslation from "next-translate/useTranslation";
 
 type LayoutProps = {
-	children: React.ReactElement | React.ReactElement[];
+	children: React.ReactElement | React.ReactElement[] | null;
 };
 
 export default function Layout({ children }: LayoutProps) {

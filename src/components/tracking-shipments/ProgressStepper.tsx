@@ -8,13 +8,14 @@ import CheckIcon from "@mui/icons-material/Check";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
-import SaveIcon from "@mui/icons-material/Save";
+import BookmarkAddedIcon from "@mui/icons-material/BookmarkAdded";
 import StepConnector, { stepConnectorClasses } from "@mui/material/StepConnector";
 import { StepIconProps } from "@mui/material/StepIcon";
 import Typography from "@mui/material/Typography";
-
 import useTranslation from "next-translate/useTranslation";
 import { theme } from "@/styles/mui/theme";
+import { ShipmentStore, TransitEventState } from "@/types/shipment-tracking-info.types";
+import { useSelector } from "react-redux";
 
 const StepperConnector = styled(StepConnector)(({ theme }) => ({
 	[`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -72,7 +73,7 @@ function StepIcon(props: StepIconProps) {
 		1: <NoteAddIcon />,
 		2: <InventoryIcon />,
 		3: <LocalShippingIcon sx={{ ...(lang === "ar" ? { transform: "scaleX(-1)" } : {}) }} />,
-		4: <SaveIcon />,
+		4: <BookmarkAddedIcon />,
 	};
 
 	return (
@@ -83,15 +84,39 @@ function StepIcon(props: StepIconProps) {
 }
 
 export default function ProgressStepper() {
+	const [currentStep, setCurrentStep] = React.useState(-1);
 	const { t, lang } = useTranslation("tracking-shipments");
 
 	const steps = [t("ticket_created"), t("package_received"), t("in_transit"), t("delivered")];
+
+	const shipmentStore: ShipmentStore = useSelector((state: any) => state.shipmentReducer);
+
+	const getCurrentStep = (state?: TransitEventState) => {
+		if (!state) return -1;
+
+		switch (state) {
+			case "TICKET_CREATED":
+				return 0;
+			case "PACKAGE_RECEIVED":
+			case "NOT_YET_SHIPPED":
+			case "IN_TRANSIT":
+			case "CANCELLED":
+				return 1;
+			case "OUT_FOR_DELIVERY":
+			case "WAITING_FOR_CUSTOMER_ACTION":
+				return 2;
+			case "DELIVERED":
+				return 3;
+			default:
+				break;
+		}
+	};
 
 	return (
 		<Box sx={{ width: "100%" }}>
 			<Stepper
 				alternativeLabel
-				activeStep={1}
+				activeStep={shipmentStore.data ? getCurrentStep(shipmentStore.data?.CurrentStatus.state) : -1}
 				connector={<StepperConnector />}
 				dir={lang === "ar" ? "rtl" : "ltr"}
 			>
@@ -107,14 +132,18 @@ export default function ProgressStepper() {
 									color: theme.palette.primary.main,
 								},
 							}}
-							optional={
-								<Typography
-									variant="caption"
-									// color="error"
-								>
-									Alert message
-								</Typography>
-							}
+							{...(getCurrentStep(shipmentStore.data?.CurrentStatus.state) === 2
+								? {
+										optional: (
+											<Typography
+												variant="caption"
+												// color="error"
+											>
+												Alert message
+											</Typography>
+										),
+								  }
+								: null)}
 							// error={true}
 						>
 							{label}

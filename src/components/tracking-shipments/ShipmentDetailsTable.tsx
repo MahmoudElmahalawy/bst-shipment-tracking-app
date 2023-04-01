@@ -10,6 +10,8 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import useTranslation from "next-translate/useTranslation";
 import { theme } from "@/styles/mui/theme";
+import { ShipmentStore } from "@/types/shipment-tracking-info.types";
+import { useSelector } from "react-redux";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
 	[`&.${tableCellClasses.head}`]: {
@@ -34,19 +36,10 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 	},
 }));
 
-const createData = (branch: string, date: string, time: string, details: string) => {
-	return { branch, date, time, details };
-};
-
-const rows = [
-	createData("مدينة نصر", "05/04/2020", "12:30 PM", "تم انشاء الشحنة"),
-	createData("مدينة نصر", "05/04/2020", "12:30 PM", "تم استلام الشحنة من التاجر"),
-	createData("مدينة نصر", "05/04/2020", "12:30 PM", "الشحنة خرجت للتسليم"),
-	createData("مدينة نصر", "05/04/2020", "12:30 PM", "لم يتم تسليم الشحنة"),
-];
-
 export default function ShipmentDetailsTable() {
 	const { t, lang } = useTranslation("tracking-shipments");
+
+	const shipmentStore: ShipmentStore = useSelector((state: any) => state.shipmentReducer);
 
 	return (
 		<Box dir={lang === "ar" ? "rtl" : "ltr"}>
@@ -67,12 +60,12 @@ export default function ShipmentDetailsTable() {
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{rows.map((row, index) => (
+						{shipmentStore.data?.TransitEvents.map((ev, index) => (
 							<StyledTableRow key={index}>
-								<StyledTableCell>{row.branch}</StyledTableCell>
-								<StyledTableCell>{row.date}</StyledTableCell>
-								<StyledTableCell>{row.time}</StyledTableCell>
-								<StyledTableCell>{row.details}</StyledTableCell>
+								<StyledTableCell>{ev?.hub || "-"}</StyledTableCell>
+								<StyledTableCell sx={{ minWidth: 110 }}>{ev.timestamp.slice(0, 10)}</StyledTableCell>
+								<StyledTableCell>{new Date(ev.timestamp).toLocaleTimeString()}</StyledTableCell>
+								<StyledTableCell>{t(ev.state) || "-"}</StyledTableCell>
 							</StyledTableRow>
 						))}
 					</TableBody>

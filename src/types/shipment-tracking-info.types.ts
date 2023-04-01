@@ -18,12 +18,22 @@ export type ShipmentTrackingInfo = {
 };
 
 export type TransitEvent = {
-	state: string;
+	state: TransitEventState;
 	timestamp: string;
 	hub?: string;
 	exceptionCode?: string;
 	reason?: string;
 };
+
+export type TransitEventState =
+	| "TICKET_CREATED"
+	| "PACKAGE_RECEIVED"
+	| "NOT_YET_SHIPPED"
+	| "IN_TRANSIT"
+	| "OUT_FOR_DELIVERY"
+	| "DELIVERED"
+	| "CANCELLED"
+	| "WAITING_FOR_CUSTOMER_ACTION";
 
 export type WorkingDay = {
 	dayDate: string;

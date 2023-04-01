@@ -14,5 +14,13 @@
 	"date": "Date",
 	"time": "Time",
 	"details": "Details",
-	"delivery_address": "Delivery Address"
+	"delivery_address": "Delivery Address",
+	"TICKET_CREATED": "Ticket Created",
+	"PACKAGE_RECEIVED": "Package Received",
+	"NOT_YET_SHIPPED": "Not Yet Shipped",
+	"IN_TRANSIT": "In Transit",
+	"OUT_FOR_DELIVERY": "Out for Delivery",
+	"DELIVERED": "Delivered",
+	"CANCELLED": "Cancelled",
+	"WAITING_FOR_CUSTOMER_ACTION": "Waiting for Customer's Action"
 }
