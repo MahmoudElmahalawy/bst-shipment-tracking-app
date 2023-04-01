@@ -6,14 +6,9 @@ import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import SearchIcon from "@mui/icons-material/Search";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputAdornment from "@mui/material/InputAdornment";
-import IconButton from "@mui/material/IconButton";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import useTranslation from "next-translate/useTranslation";
+import TrackShipmentForm from "../tracking-shipments/TrackShipmentForm";
 import { theme } from "@/styles/mui/theme";
 
 interface ExtendedTooltipProps extends TooltipProps {
@@ -53,53 +48,8 @@ const TrackingFormTooltip = styled(({ open, handleTooltipClose, className, ...pr
 	},
 }));
 
-const TrackingForm = () => {
-	const { t, lang } = useTranslation("home");
-
-	const SearchButton = () => (
-		<InputAdornment position="end">
-			<IconButton
-				edge="end"
-				sx={{
-					color: "white",
-					backgroundColor: theme.palette.primary.main,
-					padding: 1.5,
-					m: 0,
-					borderRadius: "0 8px 8px 0",
-					zIndex: 2,
-					":hover": {
-						backgroundColor: theme.palette.primary.main,
-					},
-				}}
-			>
-				<SearchIcon sx={{ fontSize: 30 }} />
-			</IconButton>
-		</InputAdornment>
-	);
-
-	return (
-		<form>
-			<FormControl sx={{ width: "35ch", my: 1.5 }} variant="outlined">
-				<InputLabel htmlFor="track-input" color="error">
-					{t("tracking_no")}
-				</InputLabel>
-				<OutlinedInput
-					id="track-input"
-					color="error"
-					sx={{
-						borderRadius: 2,
-						paddingInlineEnd: 0,
-					}}
-					endAdornment={<SearchButton />}
-					label="Password"
-				/>
-			</FormControl>
-		</form>
-	);
-};
-
 export default function TrackShipmentDropdown() {
-	const { t, lang } = useTranslation("home");
+	const { t, lang } = useTranslation("tracking-shipments");
 	const [open, setOpen] = React.useState(false);
 
 	const handleTooltipClose = () => {
@@ -116,7 +66,7 @@ export default function TrackShipmentDropdown() {
 			title={
 				<Box sx={{ px: 2, py: 1 }} dir={lang === "ar" ? "rtl" : "ltr"}>
 					<Typography sx={{ color: theme.palette.secondary.main }}>{t("track_shipment")}</Typography>
-					<TrackingForm />
+					<TrackShipmentForm />
 				</Box>
 			}
 			dir={lang === "ar" ? "rtl" : "ltr"}

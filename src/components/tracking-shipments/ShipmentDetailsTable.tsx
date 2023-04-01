@@ -46,7 +46,7 @@ const rows = [
 ];
 
 export default function ShipmentDetailsTable() {
-	const { t, lang } = useTranslation("home");
+	const { t, lang } = useTranslation("tracking-shipments");
 
 	return (
 		<Box dir={lang === "ar" ? "rtl" : "ltr"}>

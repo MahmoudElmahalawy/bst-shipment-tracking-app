@@ -8,10 +8,12 @@ import Image from "next/image";
 import setLanguage from "next-translate/setLanguage";
 import useTranslation from "next-translate/useTranslation";
 import TrackShipmentDropdown from "./TrackShipmentDropdown";
+import { useRouter } from "next/router";
 import { theme } from "@/styles/mui/theme";
 
 export default function Navbar() {
 	const { lang } = useTranslation();
+	const router = useRouter();
 
 	return (
 		<Box sx={{ flexGrow: 1 }}>
@@ -46,9 +48,9 @@ export default function Navbar() {
 							)}
 							<TrackShipmentDropdown />
 						</Box>
-						<Button color="inherit">
+						<Button color="inherit" onClick={() => router.push("/")}>
 							<Image
-								src={`./static/images/logos/logo-${lang === "ar" ? "ar" : "en"}.svg`}
+								src={`/static/images/logos/logo-${lang === "ar" ? "ar" : "en"}.svg`}
 								alt="Bosta's logo"
 								width={120}
 								height={36}

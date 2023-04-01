@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import { theme } from "@/styles/mui/theme";
 
 export default function DeliveryAddressBox() {
-	const { t, lang } = useTranslation("home");
+	const { t, lang } = useTranslation("tracking-shipments");
 
 	return (
 		<Box dir={lang === "ar" ? "rtl" : "ltr"} sx={{ marginInlineStart: { lg: 2 } }}>

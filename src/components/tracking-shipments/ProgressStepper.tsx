@@ -83,7 +83,7 @@ function StepIcon(props: StepIconProps) {
 }
 
 export default function ProgressStepper() {
-	const { t, lang } = useTranslation("home");
+	const { t, lang } = useTranslation("tracking-shipments");
 
 	const steps = [t("ticket_created"), t("package_received"), t("in_transit"), t("delivered")];
 

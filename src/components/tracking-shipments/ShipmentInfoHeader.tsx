@@ -22,7 +22,7 @@ const HeaderCell = (props: HeaderCellProps) => (
 );
 
 export default function ShipmentInfoHeader() {
-	const { t, lang } = useTranslation("home");
+	const { t, lang } = useTranslation("tracking-shipments");
 
 	return (
 		<Box

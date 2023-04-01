@@ -25,7 +25,7 @@ export default function ComplaintBox() {
 			>
 				<Box sx={{ marginInlineEnd: 1.5 }}>
 					<Image
-						src="./static/images/illustrations/question-mark-illustration.svg"
+						src="/static/images/illustrations/question-mark-illustration.svg"
 						alt="Complaints illustration"
 						width={100}
 						height={60}

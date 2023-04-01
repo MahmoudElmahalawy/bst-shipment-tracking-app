@@ -1,18 +1,3 @@
 {
-	"shipment_no": "Shipment no",
-	"last_update": "Last update",
-	"seller_name": "Seller name",
-	"delivery_date_in": "Delivery date in",
-	"ticket_created": "Ticket Created",
-	"package_received": "Package Received",
-	"in_transit": "In Transit",
-	"delivered": "Delivered",
-	"track_shipment": "Track Shipment",
-	"tracking_no": "Tracking no",
-	"shipment_details": "Shipment Details",
-	"branch": "Branch",
-	"date": "Date",
-	"time": "Time",
-	"details": "Details",
-	"delivery_address": "Delivery Address"
+	"track_your_shipment": "Track your shipment"
 }
