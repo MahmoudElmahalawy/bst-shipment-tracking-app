@@ -1,5 +1,7 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
+import { Provider as StateProvider } from "react-redux";
+import { store } from "../redux/store";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { theme } from "@/styles/mui/theme";
 import { CacheProvider } from "@emotion/react";
@@ -18,11 +20,13 @@ export default function App({ Component, pageProps }: AppProps) {
 	});
 
 	const children = (
-		<ThemeProvider theme={theme}>
-			<CssBaseline />
-			<Navbar />
-			<Component {...pageProps} />
-		</ThemeProvider>
+		<StateProvider store={store}>
+			<ThemeProvider theme={theme}>
+				<CssBaseline />
+				<Navbar />
+				<Component {...pageProps} />
+			</ThemeProvider>
+		</StateProvider>
 	);
 
 	const RtlLayout = (props: any) => <CacheProvider value={cacheRtl}>{props.children}</CacheProvider>;

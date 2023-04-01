@@ -1,3 +1,8 @@
+export type ShipmentStore = {
+	loading: boolean;
+	data: ShipmentTrackingInfo | null;
+};
+
 export type ShipmentTrackingInfo = {
 	provider: string;
 	CurrentStatus: TransitEvent;
