@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import ShipmentInfoHeader from "@/components/tracking-shipments/ShipmentInfoHeader";
 import ShipmentDetailsTable from "@/components/tracking-shipments/ShipmentDetailsTable";
+import DeliveryAddressBox from "@/components/tracking-shipments/DeliveryAddressBox";
 
 export default function Home() {
 	return (
@@ -20,6 +21,9 @@ export default function Home() {
 					<Grid container maxWidth={1000}>
 						<Grid item xs={12} lg={7}>
 							<ShipmentDetailsTable />
+						</Grid>
+						<Grid item xs={12} lg={5}>
+							<DeliveryAddressBox />
 						</Grid>
 					</Grid>
 				</Box>
