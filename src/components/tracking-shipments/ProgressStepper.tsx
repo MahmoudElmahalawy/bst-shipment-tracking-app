@@ -14,30 +14,52 @@ import { StepIconProps } from "@mui/material/StepIcon";
 import Typography from "@mui/material/Typography";
 import useTranslation from "next-translate/useTranslation";
 import { theme } from "@/styles/mui/theme";
-import { ShipmentStore, TransitEventState } from "@/types/shipment-tracking-info.types";
-import { useSelector } from "react-redux";
+import { ShipmentStore, TransitEvent } from "@/types/shipment-tracking-info.types";
+import { useDispatch, useSelector } from "react-redux";
+import { setShipmentState } from "@/redux/actions/shipment.actions";
 
 const StepperConnector = styled(StepConnector)(({ theme }) => ({
 	[`&.${stepConnectorClasses.alternativeLabel}`]: {
 		top: 22,
-	},
-	[`&.${stepConnectorClasses.active}`]: {
-		[`& .${stepConnectorClasses.line}`]: {
-			backgroundColor: theme.palette.primary.main,
-		},
-	},
-	[`&.${stepConnectorClasses.completed}`]: {
-		[`& .${stepConnectorClasses.line}`]: {
-			backgroundColor: theme.palette.primary.main,
-		},
 	},
 	[`& .${stepConnectorClasses.line}`]: {
 		height: 6,
 		border: 0,
 		backgroundColor: "#eaeaf0",
 		borderRadius: 1,
+		[theme.breakpoints.down("md")]: {
+			transform: "scaleX(1.35)",
+		},
+		[theme.breakpoints.up("md")]: {
+			transform: "scaleX(1.15)",
+		},
 	},
 }));
+
+const ColoredStepperConnector = ({ shipmentState = "created" }: { shipmentState?: keyof typeof COLOR }) => {
+	const COLOR = {
+		created: theme.palette.primary.main,
+		suspended: theme.palette.warning.main,
+		delivered: theme.palette.success.main,
+	};
+
+	return (
+		<StepperConnector
+			sx={{
+				[`&.${stepConnectorClasses.active}`]: {
+					[`& .${stepConnectorClasses.line}`]: {
+						backgroundColor: COLOR[shipmentState],
+					},
+				},
+				[`&.${stepConnectorClasses.completed}`]: {
+					[`& .${stepConnectorClasses.line}`]: {
+						backgroundColor: COLOR[shipmentState],
+					},
+				},
+			}}
+		/>
+	);
+};
 
 const StepIconRoot = styled("div")<{
 	ownerState: { completed?: boolean; active?: boolean };
@@ -55,19 +77,20 @@ const StepIconRoot = styled("div")<{
 	borderColor: "#cfcfcf",
 	...(ownerState.active && {
 		color: "white",
-		backgroundColor: theme.palette.primary.main,
 		border: "none",
 	}),
 	...(ownerState.completed && {
 		color: "white",
-		backgroundColor: theme.palette.primary.main,
 		border: "none",
+		transform: "scale(0.45)",
 	}),
 }));
 
-function StepIcon(props: StepIconProps) {
+function ColoredStepIcon(props: StepIconProps) {
 	const { lang } = useTranslation();
 	const { active, completed, className } = props;
+
+	const shipmentStore: ShipmentStore = useSelector((state: any) => state.shipmentReducer);
 
 	const icons: { [index: string]: React.ReactElement } = {
 		1: <NoteAddIcon />,
@@ -77,53 +100,75 @@ function StepIcon(props: StepIconProps) {
 	};
 
 	return (
-		<StepIconRoot ownerState={{ completed, active }} className={className}>
-			{!completed ? icons[String(props.icon)] : <CheckIcon />}
+		<StepIconRoot
+			ownerState={{ completed, active }}
+			className={className}
+			sx={{
+				...(active || completed
+					? {
+							backgroundColor:
+								shipmentStore.state === "delivered"
+									? theme.palette.success.main
+									: shipmentStore.state === "suspended"
+									? theme.palette.warning.main
+									: theme.palette.primary.main,
+					  }
+					: {}),
+			}}
+		>
+			{!completed ? icons[String(props.icon)] : <CheckIcon fontSize="large" />}
 		</StepIconRoot>
 	);
 }
 
 export default function ProgressStepper() {
-	const [currentStep, setCurrentStep] = React.useState(-1);
 	const { t, lang } = useTranslation("tracking-shipments");
+	const dispatch = useDispatch();
+	const [currentStep, setCurrentStep] = React.useState<{ number: number; reason: null | string }>({
+		number: -1,
+		reason: null,
+	});
 
 	const steps = [t("ticket_created"), t("package_received"), t("in_transit"), t("delivered")];
 
 	const shipmentStore: ShipmentStore = useSelector((state: any) => state.shipmentReducer);
 
-	const getCurrentStep = (state?: TransitEventState) => {
-		if (!state) return -1;
+	const updateCurrentStep = (transitEvents?: TransitEvent[]) => {
+		let step: number = 0;
+		let reason: null | string = null;
+		transitEvents?.forEach((e) => {
+			if (e.state === "PACKAGE_RECEIVED" && step < 1) step = 1;
+			if (e.state === "IN_TRANSIT" && step < 2) step = 2;
+			if (e.state === "DELIVERED") step = 4;
 
-		switch (state) {
-			case "TICKET_CREATED":
-				return 0;
-			case "PACKAGE_RECEIVED":
-			case "NOT_YET_SHIPPED":
-			case "IN_TRANSIT":
-			case "CANCELLED":
-				return 1;
-			case "OUT_FOR_DELIVERY":
-			case "WAITING_FOR_CUSTOMER_ACTION":
-				return 2;
-			case "DELIVERED":
-				return 3;
-			default:
-				break;
+			if (e.reason) reason = e.reason;
+		});
+		if (step < 4 && reason) {
+			setCurrentStep((prevState) => ({ ...prevState, reason }));
+			dispatch(setShipmentState("suspended"));
+		} else if (step >= 4) {
+			setCurrentStep((prevState) => ({ ...prevState, reason: null }));
+			dispatch(setShipmentState("delivered"));
 		}
+		setCurrentStep((prevState) => ({ ...prevState, number: step }));
 	};
+
+	React.useEffect(() => {
+		updateCurrentStep(shipmentStore.data?.TransitEvents);
+	}, [shipmentStore.data]);
 
 	return (
 		<Box sx={{ width: "100%" }}>
 			<Stepper
 				alternativeLabel
-				activeStep={shipmentStore.data ? getCurrentStep(shipmentStore.data?.CurrentStatus.state) : -1}
-				connector={<StepperConnector />}
+				activeStep={currentStep.number}
+				connector={<ColoredStepperConnector shipmentState={shipmentStore.state} />}
 				dir={lang === "ar" ? "rtl" : "ltr"}
 			>
-				{steps.map((label) => (
+				{steps.map((label, index) => (
 					<Step key={label}>
 						<StepLabel
-							StepIconComponent={StepIcon}
+							StepIconComponent={ColoredStepIcon}
 							sx={{
 								fontWeight: 700,
 								"& .MuiStepLabel-label": { fontWeight: 700 },
@@ -132,21 +177,22 @@ export default function ProgressStepper() {
 									color: theme.palette.primary.main,
 								},
 							}}
-							{...(getCurrentStep(shipmentStore.data?.CurrentStatus.state) === 2
-								? {
-										optional: (
-											<Typography
-												variant="caption"
-												// color="error"
-											>
-												Alert message
-											</Typography>
-										),
-								  }
-								: null)}
-							// error={true}
 						>
 							{label}
+							{index === 2 && currentStep.reason && (
+								<Typography
+									sx={{
+										position: "absolute",
+										width: "100%",
+										left: "50%",
+										transform: "translateX(-50%)",
+										fontSize: 12,
+										color: theme.palette.warning.main,
+									}}
+								>
+									{currentStep.reason}
+								</Typography>
+							)}
 						</StepLabel>
 					</Step>
 				))}

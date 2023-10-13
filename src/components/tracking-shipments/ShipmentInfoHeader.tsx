@@ -12,6 +12,7 @@ import ProgressStepper from "./ProgressStepper";
 type HeaderCellProps = {
 	title: string;
 	content: string;
+	color?: string;
 };
 
 const HeaderCell = (props: HeaderCellProps) => (
@@ -19,7 +20,14 @@ const HeaderCell = (props: HeaderCellProps) => (
 		<Typography component={"h3"} sx={{ color: "#999", fontSize: "0.85rem", mb: 1 }}>
 			{props.title}
 		</Typography>
-		<Typography component={"p"} sx={{ fontWeight: 700, mb: { sm: 1, lg: "initial" } }}>
+		<Typography
+			component={"p"}
+			sx={{
+				...(props.color && { color: props.color }),
+				fontWeight: 700,
+				mb: { sm: 1, lg: "initial" },
+			}}
+		>
 			{props.content}
 		</Typography>
 	</Grid>
@@ -47,6 +55,13 @@ export default function ShipmentInfoHeader() {
 						<HeaderCell
 							title={`${t("shipment_no")} ${shipmentStore.data.TrackingNumber}`}
 							content={t(shipmentStore.data.CurrentStatus.state)}
+							color={
+								shipmentStore.state === "delivered"
+									? theme.palette.success.main
+									: shipmentStore.state === "suspended"
+									? theme.palette.warning.main
+									: theme.palette.primary.main
+							}
 						/>
 						<HeaderCell
 							title={t("last_update")}
