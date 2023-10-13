@@ -11,6 +11,16 @@ import TrackShipmentDropdown from "./TrackShipmentDropdown";
 import { useRouter } from "next/router";
 import { theme } from "@/styles/mui/theme";
 
+const LanguageButton = (props: { lang: "ar" | "en" }) => (
+	<Button
+		component="button"
+		onClick={async () => await setLanguage(props.lang)}
+		sx={{ color: theme.palette.primary.main, fontWeight: 700 }}
+	>
+		{props.lang === "ar" ? "عربي" : "ENG"}
+	</Button>
+);
+
 export default function Navbar() {
 	const { lang } = useTranslation();
 	const router = useRouter();
@@ -18,7 +28,7 @@ export default function Navbar() {
 	return (
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar
-				position="static"
+				position="fixed"
 				sx={{
 					backgroundColor: "white",
 					boxShadow: "none",
@@ -29,23 +39,7 @@ export default function Navbar() {
 				<Container>
 					<Toolbar>
 						<Box sx={{ display: "flex", flexGrow: 1 }}>
-							{lang === "ar" ? (
-								<Button
-									component="button"
-									onClick={async () => await setLanguage("en")}
-									sx={{ color: theme.palette.primary.main, fontWeight: 700 }}
-								>
-									ENG
-								</Button>
-							) : (
-								<Button
-									component="button"
-									onClick={async () => await setLanguage("ar")}
-									sx={{ color: theme.palette.primary.main, fontWeight: 700 }}
-								>
-									عربي
-								</Button>
-							)}
+							<LanguageButton lang={lang === "ar" ? "en" : "ar"} />
 							<TrackShipmentDropdown />
 						</Box>
 						<Button color="inherit" onClick={() => router.push("/")}>
@@ -54,11 +48,13 @@ export default function Navbar() {
 								alt="Bosta's logo"
 								width={120}
 								height={36}
+								priority
 							></Image>
 						</Button>
 					</Toolbar>
 				</Container>
 			</AppBar>
+			<Toolbar />
 		</Box>
 	);
 }
