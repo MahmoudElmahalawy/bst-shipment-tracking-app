@@ -32,7 +32,9 @@ export default function ComplaintBox() {
 					/>
 				</Box>
 				<Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: 2 }}>
-					<Typography component="div">{t("do_you_have_a_problem_with_shipment")}</Typography>
+					<Typography component="div" fontWeight="bold">
+						{t("do_you_have_a_problem_with_shipment")}
+					</Typography>
 					<Button variant="contained" sx={{ boxShadow: "none", borderRadius: 3 }}>
 						{t("submit_complaint")}
 					</Button>
