@@ -22,9 +22,7 @@ export default function DeliveryAddressBox() {
 					borderRadius: 2,
 				}}
 			>
-				<Typography component="p">
-					امبابة شارع طلعت حرب مدينة العمال بجوار البرنس منزل 17 بلوك 23 ، القاهرة
-				</Typography>
+				<Typography component="p">{t("dummy_address")}</Typography>
 			</Box>
 		</Box>
 	);
