@@ -48,9 +48,14 @@ export default function ShipmentDetailsTable() {
 			</Typography>
 			<TableContainer
 				component={Box}
-				sx={{ border: "1px solid", borderColor: theme.palette.divider, borderRadius: 1 }}
+				sx={{
+					maxHeight: 320,
+					border: "1px solid",
+					borderColor: theme.palette.divider,
+					borderRadius: 1,
+				}}
 			>
-				<Table sx={{ width: "100%" }}>
+				<Table stickyHeader sx={{ width: "100%" }}>
 					<TableHead>
 						<TableRow>
 							<StyledTableCell>{t("branch")}</StyledTableCell>
@@ -63,8 +68,15 @@ export default function ShipmentDetailsTable() {
 						{shipmentStore.data?.TransitEvents.map((ev, index) => (
 							<StyledTableRow key={index}>
 								<StyledTableCell>{ev?.hub || "-"}</StyledTableCell>
-								<StyledTableCell sx={{ minWidth: 110 }}>{ev.timestamp.slice(0, 10)}</StyledTableCell>
-								<StyledTableCell>{new Date(ev.timestamp).toLocaleTimeString()}</StyledTableCell>
+								<StyledTableCell sx={{ minWidth: 110 }}>
+									{new Date(ev.timestamp).toLocaleDateString(lang === "ar" ? "ar-EG" : "en-GB")}
+								</StyledTableCell>
+								<StyledTableCell>
+									{new Date(ev.timestamp).toLocaleTimeString(lang === "ar" ? "ar-EG" : "en-US", {
+										hour: "2-digit",
+										minute: "2-digit",
+									})}
+								</StyledTableCell>
 								<StyledTableCell>{t(ev.state) || "-"}</StyledTableCell>
 							</StyledTableRow>
 						))}
