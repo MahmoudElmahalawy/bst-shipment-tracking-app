@@ -38,7 +38,7 @@ const TrackingFormTooltip = styled(({ open, handleTooltipClose, className, ...pr
 	);
 })(({ theme }) => ({
 	[`& .${tooltipClasses.tooltip}`]: {
-		mt: { xs: 0, md: 10 },
+		mt: { xs: 0, md: 6, lg: 8 },
 		backgroundColor: "white",
 		maxWidth: 350,
 		fontSize: theme.typography.pxToRem(12),
@@ -77,6 +77,7 @@ export default function TrackShipmentDropdown() {
 					color: theme.palette.secondary.main,
 					border: "1px solid",
 					borderColor: "transparent",
+					fontSize: { xs: 12, md: 15 },
 					fontWeight: 700,
 					px: 2,
 					pt: 1,
