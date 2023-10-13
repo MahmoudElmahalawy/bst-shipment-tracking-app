@@ -1,6 +1,7 @@
 export type ShipmentStore = {
 	loading: boolean;
 	data: ShipmentTrackingInfo | null;
+	state?: "created" | "suspended" | "delivered";
 };
 
 export type ShipmentTrackingInfo = {

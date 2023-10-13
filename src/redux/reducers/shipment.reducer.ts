@@ -13,6 +13,8 @@ export const shipmentReducer = (state = initialState, action: ReduxAction) => {
 			return { ...state, loading: action.payload };
 		case shipmentTypes.SET_DATA:
 			return { ...state, data: action.payload };
+		case shipmentTypes.SET_SHIPMENT_STATE:
+			return { ...state, state: action.payload };
 		default:
 			return state;
 	}

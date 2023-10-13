@@ -14,3 +14,10 @@ export const setData = (data: any): ReduxAction => {
 		payload: data,
 	};
 };
+
+export const setShipmentState = (data: "created" | "suspended" | "delivered"): ReduxAction => {
+	return {
+		type: shipmentTypes.SET_SHIPMENT_STATE,
+		payload: data,
+	};
+};
