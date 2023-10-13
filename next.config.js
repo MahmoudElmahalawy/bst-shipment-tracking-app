@@ -3,6 +3,12 @@ const nextTranslate = require("next-translate-plugin");
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	reactStrictMode: true,
+	/**
+	 * Enable static exports for the App Router.
+	 *
+	 * @see https://nextjs.org/docs/pages/building-your-application/deploying/static-exports
+	 */
+	output: "export",
 
 	/**
 	 * Set base path. This is usually the slug of your repository.
