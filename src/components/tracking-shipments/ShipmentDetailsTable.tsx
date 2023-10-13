@@ -71,13 +71,32 @@ export default function ShipmentDetailsTable() {
 								<StyledTableCell sx={{ minWidth: 110 }}>
 									{new Date(ev.timestamp).toLocaleDateString(lang === "ar" ? "ar-EG" : "en-GB")}
 								</StyledTableCell>
-								<StyledTableCell>
+								<StyledTableCell sx={{ minWidth: 90 }}>
 									{new Date(ev.timestamp).toLocaleTimeString(lang === "ar" ? "ar-EG" : "en-US", {
 										hour: "2-digit",
 										minute: "2-digit",
 									})}
 								</StyledTableCell>
-								<StyledTableCell>{t(ev.state) || "-"}</StyledTableCell>
+								<StyledTableCell>
+									{ev.state ? (
+										<>
+											{t(ev.state)}
+											{ev.reason && (
+												<Typography
+													sx={{
+														color: theme.palette.warning.main,
+														fontSize: "inherit",
+														mt: 1,
+													}}
+												>
+													{ev.reason}
+												</Typography>
+											)}
+										</>
+									) : (
+										"-"
+									)}
+								</StyledTableCell>
 							</StyledTableRow>
 						))}
 					</TableBody>
