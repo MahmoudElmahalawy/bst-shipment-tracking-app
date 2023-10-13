@@ -1,4 +1,5 @@
 {
+	"dummy_address": "امبابة شارع طلعت حرب مدينة العمال بجوار البرنس منزل 17 بلوك 23 ، القاهرة",
 	"shipment_no": "رقم الشحنة",
 	"last_update": "آخر تحديث",
 	"seller_name": "اسم التاجر",
@@ -22,5 +23,6 @@
 	"OUT_FOR_DELIVERY": "الشحنة خرجت للتوصيل",
 	"DELIVERED": "تم التسليم",
 	"CANCELLED": "تم إلغاء الشحنة",
-	"WAITING_FOR_CUSTOMER_ACTION": "في إنتظار العميل"
+	"WAITING_FOR_CUSTOMER_ACTION": "في إنتظار العميل",
+	"DELIVERED_TO_SENDER": "تم إرجاع الشحنة"
 }

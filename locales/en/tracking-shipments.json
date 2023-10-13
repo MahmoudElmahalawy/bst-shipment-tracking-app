@@ -1,4 +1,5 @@
 {
+	"dummy_address": "17, 23, Talaat Harb St, Madinat Alomal, Imbaba, Cairo",
 	"shipment_no": "Shipment no",
 	"last_update": "Last update",
 	"seller_name": "Seller name",
@@ -22,5 +23,6 @@
 	"OUT_FOR_DELIVERY": "Out for Delivery",
 	"DELIVERED": "Delivered",
 	"CANCELLED": "Cancelled",
-	"WAITING_FOR_CUSTOMER_ACTION": "Waiting for Customer's Action"
+	"WAITING_FOR_CUSTOMER_ACTION": "Waiting for Customer's Action",
+	"DELIVERED_TO_SENDER": "Returned back to the shipper"
 }
